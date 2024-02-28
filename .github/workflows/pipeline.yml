@@ -18,9 +18,10 @@ jobs:
           images: |
             osygroup.azurecr.io/pythonapp
           tags: |
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+            #type=ref,event=branch
+            #type=semver,pattern={{version}}
+            #type=semver,pattern={{major}}.{{minor}}
           flavor: |
             latest=true
       - name: Setup Docker Buildx
