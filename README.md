@@ -1,9 +1,13 @@
 # precious_devops_task
 
 mkdir chart-test && cd chart-test
+
 helm create myfirstchart
+
 helm lint pythonapp_chart
+
 helm package pythonapp_chart
+
 helm repo index --url https://helmdemo.blob.core.windows.net/helmdemo/ .
 
 The 'helm package' command will create a tgz packaging of the chart
