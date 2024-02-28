@@ -24,7 +24,7 @@ Helm is the de facto package manager for Kubernetes and a chart is a collection 
 
 Create your Storage Account and container via Azure CLI, Terraform, or Azure Portal for the Helm repository.
 
-Run the below commands to create Helm chart
+Run the below commands to create Helm chart:
 
 ```
 mkdir chart-demo && cd chart-demo
@@ -36,18 +36,18 @@ cd to the created _pythonapp_chart_ directory, delete everything in the _templat
 The deployment.yaml file in the chart has liveness and readiness probes to validate the application’s health.
 Taken into account was the proper configuration of the application via the Helm chart as credentials details for the Azure Storage Blob Storage were stored in a secret.yaml file to prevent hard-coding of any credentials in the application's code. Credentials can further be managed properly using GitOps practices or credentials management services.
 
-Run the following commands to examine the chart for possible issues
+Run the below command to examine the chart for possible issues:
 ```
 helm lint pythonapp_chart
 ```
-Then run the below commands to package and prepare the chart for pushing to the Azure Storage Helm repository
+Then run the below commands to package and prepare the chart for pushing to the Azure Storage Helm repository:
 ```
 helm package pythonapp_chart
 
 helm repo index --url https://$storageAccountName.blob.core.windows.net/$containerName/ .
 ```
-The 'helm package' command will create a tgz packaging of the chart
-The 'helm repo index' command will create an index.yaml file in your working directory
+The 'helm package' command will create a tgz packaging of the chart.
+The 'helm repo index' command will create an index.yaml file in your working directory.
 
 Upload both files to the Azure Storage container (blob):
 ```
