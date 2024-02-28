@@ -1,0 +1,20 @@
+name: "Push Helm Chart Update to Helm Repo"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  Update_helm_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Push Helm Chart Update to Helm Repo
+        run: |
+          helm lint pythonapp_chart
+          helm package pythonapp_chart
+          helm repo index --url https://helmdemo.blob.core.windows.net/helmdemo/ .
+          az storage blob upload --container-name helmdemo --file index.yaml --name index.yaml --account-name helmdemo --account-key iLohKYezKIzUwNNpUvA6LeAMamRNbZGIOTPbCOBfiWoDGow7R393sbVjYM+uMbfJ68pmeOp6K5xB+AStTJvA/Q==
+          az storage blob upload --container-name helmdemo --file pythonapp_chart-0.1.0.tgz --name pythonapp_chart-0.1.0.tgz --account-name helmdemo --account-key iLohKYezKIzUwNNpUvA6LeAMamRNbZGIOTPbCOBfiWoDGow7R393sbVjYM+uMbfJ68pmeOp6K5xB+AStTJvA/Q==
+
