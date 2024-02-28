@@ -1,20 +1,20 @@
 # Precious DevOps Task
 ## Part II: Deliver Small App for K8S and a Helm Chart
 
-This repository contains the following:
-A simple Python HTTP app that upon query returns the contents of the Azure Blob Storage container in JSON format.
-A Dockerfile for creation of a Docker image for the Python app
-A Helm chart for the Python app
-A workflow (update_helm_repo.yml) file for updating the Helm chart on the created Azure Storage Helm repository
-A workflow (deploy_to_AKS.yml) file for building the Docker image, pushing it to Azure Container Registry, and installing the Python app Helm chart on AKS.
-
 
 ### 1. Create a simple HTTP app in the language of your choice that upon query returns the contents of the Azure Blob Storage in JSON format.
 On the root of this repository is a simple Python HTTP app (app.py) that upon query returns the contents of the Azure Blob Storage container in JSON format when it is run.
 
 
 ### 2. Create a Dockerfile for the application
-On the root of this repository is a Dockerfile for the creation of a Docker image for the Python app
+On the root of this repository is a Dockerfile for the creation of a Docker image for the Python app.
+
+The image built from this Dockerfile can be run on a Docker container, passing an .env file that contains the following environment variables:
+```
+STORAGE_ACCOUNT_NAME=name_of_the_Azure_Storage_Account
+STORAGE_ACCOUNT_KEY="value_of_the_Azure_Storage_Account_key"
+CONTAINER_NAME=name_of_the_Azure_Storage_Container
+```
 
 
 ### 3. Create a Helm chart to deploy the application to AKS cluster
