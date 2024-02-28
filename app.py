@@ -1,3 +1,4 @@
+import os
 import flask
 from flask import Flask, request, jsonify
 from azure.storage.blob import BlobServiceClient, BlobPrefix
@@ -5,9 +6,9 @@ from azure.storage.blob import BlobServiceClient, BlobPrefix
 app = Flask(__name__)
 
 # Set your Azure Storage account information
-account_name = "helmdemo"
-account_key = "iLohKYezKIzUwNNpUvA6LeAMamRNbZGIOTPbCOBfiWoDGow7R393sbVjYM+uMbfJ68pmeOp6K5xB+AStTJvA/Q=="
-container_name = "helmdemo"
+account_name = os.environ["STORAGE_ACCOUNT_NAME"]
+account_key = os.environ["STORAGE_ACCOUNT_KEY"]
+container_name = os.environ["CONTAINER_NAME"]
 
 # Initialize the BlobServiceClient
 blob_service_client = BlobServiceClient(

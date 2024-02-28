@@ -24,6 +24,6 @@ spec:
               cpu: "70m"
           ports:
           - containerPort: 80
-          #envFrom:
-          #- configMapRef:
-              #name: pythonapp-env
+          envFrom:
+          - secretRef:
+              name: pythonapp-env
