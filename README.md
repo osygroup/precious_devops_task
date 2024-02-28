@@ -1,5 +1,8 @@
 # precious_devops_task
 
+List all the repositories on your local:
+helm repo list
+
 View all the helm releases in the cluster:
 helm list --all-namespaces
 
