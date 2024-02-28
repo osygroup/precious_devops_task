@@ -11,20 +11,28 @@ A workflow (deploy_to_AKS.yml) file for building the Docker image, pushing it to
 Helm is the de facto package manager for Kubernetes and a chart is a collection of templates powered by a template engine that easily describes your Kubernetes manifest YAML files. Essentially Helm enables you to streamline your Kubernetes deployments by allowing you to use variables instead of hard-code values.
 
 
-Create your Storage Account and container via Azure CLI, Terraform, or Azure Portal. 
+Create your Storage Account and container via Azure CLI, Terraform, or Azure Portal for the Helm repository.
+
+Run the below commands to create Helm chart
 
 ```
 mkdir chart-demo && cd chart-demo
 
 helm create pythonapp_chart
-
-helm lint pythonapp_chart
-
-helm package pythonapp_chart
-
-helm repo index --url https://helmdemo.blob.core.windows.net/helmdemo/ .
 ```
 
+cd to the created _pythonapp_chart_ directory, delete everything in the _templates_ folder and then add all your kubernetes yaml files for the app inside the _templates_ folder. The default contents of the values.yaml file on the root of the _pythonapp_chart_ can be deleted and used to pass values into the chart. The values.yaml file in the helm chart in this repository is used to pass docker image_name:tag to the deployment.yaml file.
+
+Run the following commands to examine the chart for possible issues
+```
+helm lint pythonapp_chart
+```
+Then run the below commands to package and prepare the chart for pushing to the Azure Storage Helm repository
+```
+helm package pythonapp_chart
+
+helm repo index --url https://$storageAccountName.blob.core.windows.net/$containerName/ .
+```
 The 'helm package' command will create a tgz packaging of the chart
 The 'helm repo index' command will create an index.yaml file in your working directory
 
