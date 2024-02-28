@@ -43,22 +43,32 @@ az storage blob upload --container-name $containerName --file index.yaml --name 
 az storage blob upload --container-name $containerName --file pythonapp_chart-0.1.0.tgz --name pythonapp_chart-0.1.0.tgz --account-name $storageAccountName --account-key $storageAccountKey
 ```
 
-
 Add the helm repository to your local:
-To add a Helm repo to your local:
+```
 helm repo add helm_repo_azure https://helmdemo.blob.core.windows.net/helmdemo/
-
+```
 List all the repositories on your local:
+```
 helm repo list
-
+```
 Update all the helm repositories on your local:
+```
 helm repo update
-
+```
 To search the Helm repositories on your local for a chart (using a keyword):
+```
 helm search repo pythonapp
+```
+
 
 View all the helm releases in the cluster:
+```
 helm list --all-namespaces
-
+```
 Port-forward the python app on your local (port 8099 in this case) to view the app:
+```
 kubectl port-forward -n pythonapp service/pythonapp 8099:5000
+```
+The Python app can be reachable at http://localhost:8099/query
+
+You can also create an ingress resource for access to the Python app over the internet
