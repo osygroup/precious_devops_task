@@ -16,8 +16,18 @@ az storage blob upload --container-name helmdemo --file pythonapp_chart-0.1.0.tg
 At some point, you will want to upload additional charts. For each new chart, you’ll need to regenerate the index.yaml file. You can use the command helm repo index --url to rebuild your index.yaml, this will rebuild it from scratch and by default will only include the charts found locally. 
 So ensure that you are creating your new charts in the same directory with others, so that the index.yaml file will capture all the charts. If you create a new chart in a different directory, the index.yaml file that will be generated will only capture that new chart. Uploading this file on the Azure storage container (the private Helm repository) will overwrite whatever index.yaml file that is already there and render the earlier uploaded packaged charts useless. A local update of Helm repos will remove the charts.
 
+Add the helm repository to your local:
+To add a Helm repo to your local:
+helm repo add helm_repo_azure https://helmdemo.blob.core.windows.net/helmdemo/
+
 List all the repositories on your local:
 helm repo list
+
+Update all the helm repositories on your local:
+helm repo update
+
+To search the Helm repositories on your local for a chart (using a keyword):
+helm search repo pythonapp
 
 View all the helm releases in the cluster:
 helm list --all-namespaces
