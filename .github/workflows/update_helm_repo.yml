@@ -13,8 +13,13 @@ jobs:
       - name: Push Helm Chart Update to Helm Repo
         run: |
           helm lint pythonapp_chart
+          
+          
           helm package pythonapp_chart
+          
           helm repo index --url https://helmdemo.blob.core.windows.net/helmdemo/ .
-          az storage blob upload --container-name helmdemo --file index.yaml --name index.yaml --overwrite --account-name helmdemo --account-key iLohKYezKIzUwNNpUvA6LeAMamRNbZGIOTPbCOBfiWoDGow7R393sbVjYM+uMbfJ68pmeOp6K5xB+AStTJvA/Q==
-          az storage blob upload --container-name helmdemo --file pythonapp_chart-0.1.0.tgz --name pythonapp_chart-0.1.0.tgz --overwrite --account-name helmdemo --account-key iLohKYezKIzUwNNpUvA6LeAMamRNbZGIOTPbCOBfiWoDGow7R393sbVjYM+uMbfJ68pmeOp6K5xB+AStTJvA/Q==
+          
+          az storage blob upload --container-name helmdemo --file index.yaml --name index.yaml --overwrite --account-name helmdemo --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }}
+          
+          az storage blob upload --container-name helmdemo --file pythonapp_chart-0.1.0.tgz --name pythonapp_chart-0.1.0.tgz --overwrite --account-name helmdemo --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }}
 
