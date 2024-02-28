@@ -35,3 +35,25 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           #labels: ${{ steps.meta.outputs.labels }}
+          
+          
+      - name: Deploy to AKS
+        run: |
+          # Az Login
+          az login --service-principal -u 21e0344e-ee17-490c-9605-212d7267f347 -p nB68Q~iwYdfAGHah-FrZ6ZuolhCevPybISSfwaTq --tenant 2861845b-3350-4142-b0fd-b02e1048d178
+          # Connect to k8s
+          az account set --subscription f3ac3aa6-5050-4293-b524-5a12d8a0d39b
+          az aks get-credentials --resource-group AKSdemoRG --name AKSCluster
+          
+          # Create namespace if not created
+          kubectl get namespace -oname | grep "namespace/pythonapp" \
+                || kubectl create namespace pythonapp
+                
+          # Install Helm
+          #curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+          #chmod 700 get_helm.sh
+          #./get_helm.sh
+          
+          # Helm Install chart
+          helm upgrade --install aaaspayoutservice pythonapp_chart/ --namespace pythonapp --set imageTag=${{ steps.meta.outputs.tags }}
+
