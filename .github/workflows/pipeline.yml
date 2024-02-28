@@ -55,5 +55,5 @@ jobs:
           #./get_helm.sh
           
           # Helm Install chart
-          helm upgrade --install aaaspayoutservice pythonapp_chart/ --namespace pythonapp --set imageTag=${{ steps.meta.outputs.tags }}
+          helm upgrade --install pythonapp pythonapp_chart/ --namespace pythonapp --set imageTag=${{ steps.meta.outputs.tags }}
 
