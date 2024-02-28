@@ -17,10 +17,10 @@ spec:
           image: {{ .Values.imageTag }}
           resources:
             requests:
-              memory: "20M"
+              memory: "100M"
               cpu: "50m"
             limits:
-              memory: "50M"
+              memory: "200M"
               cpu: "70m"
           ports:
           - containerPort: 80

@@ -1,4 +1,4 @@
-name: "Deploy app to k8s cluster"
+name: "Deploy Python app to AKS cluster"
 on:
   workflow_dispatch:
   push:
@@ -6,7 +6,7 @@ on:
     branches:
       - main
 jobs:
-  docker:
+  Deploy_Python_app_to_AKS_cluster:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
