@@ -27,3 +27,16 @@ spec:
           envFrom:
           - secretRef:
               name: pythonapp-env
+          readinessProbe:
+	    httpGet:
+	      path: /query
+	      port: 8080
+	    initialDelaySeconds: 10
+	    periodSeconds: 5
+	  livenessProbe:
+	    httpGet:
+	      path: /query
+	      port: 8080
+	    initialDelaySeconds: 20
+	    periodSeconds: 10
+
