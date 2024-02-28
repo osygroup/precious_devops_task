@@ -1,0 +1,1 @@
+imageTag: "${{ steps.meta.outputs.tags }}"

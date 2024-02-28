@@ -1,0 +1,29 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: pythonapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pythonapp
+  template:
+    metadata:
+      labels:
+        app: pythonapp
+    spec:
+      containers:
+        - name: pythonapp 
+          image: osygroup.azurecr.io/pythonapp:{{ .Values.imageTag }}
+          resources:
+            requests:
+              memory: "20M"
+              cpu: "50m"
+            limits:
+              memory: "50M"
+              cpu: "70m"
+          ports:
+          - containerPort: 80
+          #envFrom:
+          #- configMapRef:
+              #name: pythonapp-env
