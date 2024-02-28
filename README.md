@@ -8,6 +8,10 @@ A Helm chart for the Python app
 A workflow (update_helm_repo.yml) file for updating the Helm chart on the created Azure Storage Helm repository
 A workflow (deploy_to_AKS.yml) file for building the Docker image, pushing it to Azure Container Registry, and installing the Python app Helm chart on AKS.
 
+
+### 1. Create a simple HTTP app in the language of your choice that upon query returns the contents of the Azure Blob Storage in JSON format.
+On the root of this repository is a simple Python HTTP app (app.py) that upon query returns the contents of the Azure Blob Storage container in JSON format when it is run.
+
 Helm is the de facto package manager for Kubernetes and a chart is a collection of templates powered by a template engine that easily describes your Kubernetes manifest YAML files. Essentially Helm enables you to streamline your Kubernetes deployments by allowing you to use variables instead of hard-code values.
 
 
@@ -22,6 +26,8 @@ helm create pythonapp_chart
 ```
 
 cd to the created _pythonapp_chart_ directory, delete everything in the _templates_ folder and then add all your kubernetes yaml files for the app inside the _templates_ folder. The default contents of the values.yaml file on the root of the _pythonapp_chart_ can be deleted and used to pass values into the chart. The values.yaml file in the helm chart in this repository is used to pass docker image_name:tag to the deployment.yaml file.
+The deployment.yaml file in the chart has liveness and readiness probes to validate the application’s health.
+Taken into account was the proper configuration of the application via the Helm chart as credentials details for the Azure Storage Blob Storage were stored in a secret.yaml file to prevent hard-coding of any credentials in the application's code. Credentials can further be managed properly using GitOps practices or credentials management services.
 
 Run the following commands to examine the chart for possible issues
 ```
@@ -61,6 +67,13 @@ helm search repo pythonapp
 ```
 
 
+### 2. Create a Dockerfile for the application
+On the root of this repository is a Dockerfile for the creation of a Docker image for the Python app
+
+
+### 3. Create a Helm chart to deploy the application to AKS cluster
+
+
 View all the helm releases in the cluster:
 ```
 helm list --all-namespaces
@@ -69,6 +82,6 @@ Port-forward the python app on your local (port 8099 in this case) to view the a
 ```
 kubectl port-forward -n pythonapp service/pythonapp 8099:5000
 ```
-The Python app can be reachable at http://localhost:8099/query
+The Python app can now be reachable locally on a browser at http://localhost:8099/query
 
 You can also create an ingress resource for access to the Python app over the internet
