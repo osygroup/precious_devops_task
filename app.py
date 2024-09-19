@@ -6,9 +6,9 @@ from azure.storage.blob import BlobServiceClient, BlobPrefix
 app = Flask(__name__)
 
 # Set your Azure Storage account information
-account_name = os.environ["STORAGE_ACCOUNT_NAME"]
-account_key = os.environ["STORAGE_ACCOUNT_KEY"]
-container_name = os.environ["CONTAINER_NAME"]
+account_name = os.environ["STORAGE-ACCOUNT-NAME"]
+account_key = os.environ["STORAGE-ACCOUNT-KEY"]
+container_name = os.environ["CONTAINER-NAME"]
 
 # Initialize the BlobServiceClient
 blob_service_client = BlobServiceClient(
