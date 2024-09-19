@@ -12,7 +12,7 @@ On the root of this repository is a Dockerfile for the creation of a Docker imag
 The image built from this Dockerfile can be run on a Docker container, passing an .env file that contains the following environment variables:
 ```
 STORAGE_ACCOUNT_NAME=name_of_the_Azure_Storage_Account
-STORAGE_ACCOUNT_KEY="value_of_the_Azure_Storage_Account_key"
+STORAGE_ACCOUNT_KEY=value_of_the_Azure_Storage_Account_key
 CONTAINER_NAME=name_of_the_Azure_Storage_Container
 ```
 
